@@ -16,8 +16,8 @@ const baseUrl = getBaseUrl();
 
 export const SITE = {
   AUTHOR: {
-    NAME: "Aniket Pawar",
-    TWITTER: "@alaymanguy",
+    NAME: "Arham Khan",
+    TWITTER: "@Arhamkhnz",
   },
   DESCRIPTION: {
     LONG: "A starter kit for building and publishing your own shadcn registry components.",
