@@ -1,0 +1,22 @@
+@import "./ui-theme.css";
+
+@layer base {
+  :host {
+    @apply font-sans text-foreground;
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  :host * {
+    @apply border-border outline-ring/50;
+  }
+
+  #root {
+    @apply font-sans text-foreground;
+    font-family: var(--font-sans);
+  }
+}
