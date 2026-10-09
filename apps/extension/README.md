@@ -65,7 +65,7 @@ Useful scripts:
 
 ```bash
 pnpm check
-pnpm compile
+pnpm typecheck
 pnpm build
 pnpm zip
 ```
