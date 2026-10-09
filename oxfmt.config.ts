@@ -1,5 +1,4 @@
 import { defineConfig } from "oxfmt";
-import ultracite from "ultracite/oxfmt";
 
 export default defineConfig({
   arrowParens: "always",
@@ -12,15 +11,17 @@ export default defineConfig({
     order: "asc",
   },
   experimentalSortPackageJson: true,
-  extends: [ultracite],
   ignorePatterns: [
-    "public/r/**",
-    ".agents/**",
-    ".cursor/**",
-    ".changeset/**",
-    ".claude/**",
-    ".web-kits/**",
-    "audio/**",
+    "**/.agents/**",
+    "**/.changeset/**",
+    "**/.claude/**",
+    "**/.cursor/**",
+    "apps/extension/.output/**",
+    "apps/extension/.wxt/**",
+    "apps/web/.source/**",
+    "apps/web/.web-kits/**",
+    "apps/web/audio/**",
+    "apps/web/public/r/**",
   ],
   jsxSingleQuote: false,
   printWidth: 80,

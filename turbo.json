@@ -10,10 +10,28 @@
         ".output/**"
       ]
     },
-    "check": {},
+    "check": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/oxfmt.config.ts"
+      ]
+    },
     "dev": {
       "cache": false,
       "persistent": true
+    },
+    "format": {
+      "cache": false
+    },
+    "format:check": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/oxfmt.config.ts"]
+    },
+    "fix": {
+      "cache": false
+    },
+    "lint": {},
+    "lint:fix": {
+      "cache": false
     },
     "registry:build": {
       "outputs": ["public/r/**"]
