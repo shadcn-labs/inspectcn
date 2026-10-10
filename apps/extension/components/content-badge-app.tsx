@@ -38,7 +38,7 @@ function getViewport() {
   };
 }
 
-export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
+export const ContentBadgeApp = ({ shadowRoot }: { shadowRoot: ShadowRoot }) => {
   const [anchorIndex, setAnchorIndex] = useState(DEFAULT_ANCHOR_INDEX);
   const [isOpen, setIsOpen] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -231,7 +231,7 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
 
   return (
     <div
-      className="pointer-events-none fixed inset-0 z-[2147483647]"
+      className="pointer-events-none fixed inset-0 z-2147483647"
       data-anchor={activeAnchor.id}
       data-dragging={isDragging}
       data-inspectcn-ui="true"
@@ -284,18 +284,18 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
 
             {isOpen && !inspector.snapshots ? (
               <ThemeTokenLoadingState />
-            ) : !inspector.snapshots ? (
-              <ThemeTokenEmptyState />
-            ) : (
+            ) : inspector.snapshots ? (
               <>
                 <ThemeCapturePanel inspector={inspector} />
                 <Separator />
                 <ThemeTokenTabs inspector={inspector} />
               </>
+            ) : (
+              <ThemeTokenEmptyState />
             )}
           </PopoverContent>
         </Popover>
       </div>
     </div>
   );
-}
+};

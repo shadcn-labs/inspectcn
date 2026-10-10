@@ -9,6 +9,11 @@ export default defineConfig({
   autoIcons: {
     baseIconPath: "public/icon.svg",
   },
+  dev: {
+    server: {
+      port: 3001,
+    },
+  },
   manifest: {
     name: "Inspectcn",
     description:
