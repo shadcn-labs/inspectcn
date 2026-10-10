@@ -8,7 +8,11 @@
   "type": "module",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:firefox": "turbo run dev:firefox",
     "build": "turbo run build",
+    "build:firefox": "turbo run build:firefox",
+    "zip": "turbo run zip",
+    "zip:firefox": "turbo run zip:firefox",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
     "registry:build": "turbo run registry:build",

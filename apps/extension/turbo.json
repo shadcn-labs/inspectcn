@@ -4,6 +4,9 @@
   "tasks": {
     "build": {
       "outputs": [".output/**"]
+    },
+    "build:firefox": {
+      "outputs": [".output/**"]
     }
   }
 }

@@ -4,6 +4,9 @@
     "build": {
       "dependsOn": ["^build"]
     },
+    "build:firefox": {
+      "dependsOn": ["^build"]
+    },
     "check": {
       "inputs": [
         "$TURBO_DEFAULT$",
@@ -12,6 +15,10 @@
       ]
     },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:firefox": {
       "cache": false,
       "persistent": true
     },
@@ -34,6 +41,12 @@
     },
     "typecheck": {
       "outputs": ["*.tsbuildinfo"]
+    },
+    "zip": {
+      "cache": false
+    },
+    "zip:firefox": {
+      "cache": false
     }
   }
 }
