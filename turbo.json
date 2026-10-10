@@ -14,12 +14,6 @@
       "cache": false,
       "persistent": true
     },
-    "format": {
-      "cache": false
-    },
-    "format:check": {
-      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/oxfmt.config.ts"]
-    },
     "fix": {
       "cache": false
     },

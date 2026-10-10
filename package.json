@@ -14,8 +14,8 @@
     "registry:build": "turbo run registry:build",
     "check": "turbo run check",
     "fix": "turbo run fix",
-    "format": "turbo run format",
-    "format:check": "turbo run format:check",
+    "format": "oxfmt --write .",
+    "format:check": "oxfmt --check .",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix"
   },

@@ -11,8 +11,6 @@
     "postinstall": "fumadocs-mdx",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "format": "oxfmt --write .",
-    "format:check": "oxfmt --check .",
     "lint": "oxlint .",
     "lint:fix": "oxlint --fix .",
     "prepare": "lefthook install"
