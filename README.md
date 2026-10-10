@@ -40,6 +40,9 @@
 
 ## Quick Start
 
+Run commands from the workspace root. Use Node.js `^20.19.0 || >=22.18.0`
+and pnpm `10.28.2`.
+
 1. **Use this template** - Click "Use this template" on GitHub
 
 2. **Install dependencies**:
@@ -48,9 +51,9 @@
 pnpm install
 ```
 
-3. **Replace the placeholder component** at `registry/new-york/your-component.tsx`
+3. **Replace the placeholder component** at `apps/web/registry/new-york/your-component.tsx`
 
-4. **Update `registry.json`** with your component details
+4. **Update `apps/web/registry.json`** with your component details
 
 5. **Build the registry**:
 
@@ -58,11 +61,14 @@ pnpm install
 pnpm registry:build
 ```
 
-6. **Start development**:
+6. **Start both apps in development**:
 
 ```bash
 pnpm dev
 ```
+
+To start only the website, use `pnpm --filter startercn dev`. To start only
+the extension, use `pnpm --filter inspectcn dev`.
 
 7. **Deploy** and share your component!
 
@@ -77,20 +83,30 @@ npx shadcn@latest add https://your-domain.com/r/your-component.json
 ## Project Structure
 
 ```
-├── registry/
-│   └── new-york/           # Your components go here
-│       └── your-component.tsx
-├── registry.json           # Component registry manifest
-├── content/docs/           # Documentation (MDX)
-├── app/                    # Next.js app
-└── public/r/               # Built registry files (auto-generated)
+├── apps/
+│   ├── web/                # Next.js website and component registry (startercn)
+│   │   ├── registry/new-york/your-component.tsx
+│   │   ├── registry.json   # Component registry manifest
+│   │   ├── content/docs/   # Documentation (MDX)
+│   │   ├── app/            # Next.js app
+│   │   └── public/r/       # Built registry files (auto-generated)
+│   └── extension/          # WXT browser extension (inspectcn)
+├── package.json            # Workspace commands and shared tooling
+├── pnpm-workspace.yaml     # Workspace package paths
+└── turbo.json              # Shared task configuration
 ```
 
 ## Scripts
 
-- `pnpm dev` - Start development server
-- `pnpm build` - Build for production
+- `pnpm dev` - Start the website and extension development servers
+- `pnpm build` - Build both apps for production (also rebuilds the registry)
 - `pnpm registry:build` - Rebuild the component registry
+- `pnpm typecheck` - Check types in both apps
+- `pnpm check` - Run the app lint and formatting checks
+- `pnpm format` - Format both apps and workspace root files through Turbo
+- `pnpm format:check` - Check formatting in both apps and workspace root files
+- `pnpm zip` - Package the Chrome extension
+- `pnpm zip:firefox` - Package the Firefox extension
 
 ## License
 

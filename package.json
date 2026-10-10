@@ -18,8 +18,10 @@
     "registry:build": "turbo run registry:build",
     "check": "turbo run check",
     "fix": "turbo run fix",
-    "format": "oxfmt --write .",
-    "format:check": "oxfmt --check .",
+    "format": "turbo run format format:root",
+    "format:check": "turbo run format:check format:root:check",
+    "format:root": "oxfmt --write . '!apps/**' '!packages/**' '!.build/**' '!.pnpm-store/**'",
+    "format:root:check": "oxfmt --check . '!apps/**' '!packages/**' '!.build/**' '!.pnpm-store/**'",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint:fix"
   },
@@ -30,7 +32,7 @@
     "ultracite": "7.6.1"
   },
   "engines": {
-    "node": ">=20.9.0",
+    "node": "^20.19.0 || >=22.18.0",
     "pnpm": ">=10.0.0"
   },
   "packageManager": "pnpm@10.28.2"

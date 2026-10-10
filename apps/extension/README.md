@@ -56,18 +56,22 @@ If you find a website where Inspectcn gives the wrong result, please open an iss
 
 ## Development
 
+From the workspace root:
+
 ```bash
 pnpm install
-pnpm dev
+pnpm --filter inspectcn dev
 ```
 
 Useful scripts:
 
 ```bash
-pnpm check
-pnpm compile
-pnpm build
-pnpm zip
+pnpm --filter inspectcn check
+pnpm --filter inspectcn typecheck
+pnpm --filter inspectcn format
+pnpm --filter inspectcn format:check
+pnpm --filter inspectcn build
+pnpm --filter inspectcn zip
 ```
 
 ## Tech

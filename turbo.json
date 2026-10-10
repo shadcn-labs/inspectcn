@@ -25,6 +25,22 @@
     "fix": {
       "cache": false
     },
+    "format": {
+      "cache": false
+    },
+    "format:check": {
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/oxfmt.config.ts",
+        "$TURBO_ROOT$/.gitignore"
+      ]
+    },
+    "//#format:root": {
+      "cache": false
+    },
+    "//#format:root:check": {
+      "cache": false
+    },
     "lint": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/oxlint.config.ts"]
     },
