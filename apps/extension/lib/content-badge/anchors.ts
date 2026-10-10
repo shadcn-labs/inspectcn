@@ -27,7 +27,10 @@ export type PopoverPlacement = {
   side: "top" | "right" | "bottom" | "left";
 };
 
-export function getAnchorPoints(viewportWidth: number, viewportHeight: number): AnchorPoint[] {
+export function getAnchorPoints(
+  viewportWidth: number,
+  viewportHeight: number
+): AnchorPoint[] {
   const centerX = viewportWidth / 2 - BADGE_SIZE / 2;
   const centerY = viewportHeight / 2 - BADGE_SIZE / 2;
   const maxX = viewportWidth - BADGE_MARGIN - BADGE_SIZE;
@@ -45,7 +48,11 @@ export function getAnchorPoints(viewportWidth: number, viewportHeight: number): 
   ];
 }
 
-export function findNearestAnchor(position: BadgePosition, viewportWidth: number, viewportHeight: number): AnchorPoint {
+export function findNearestAnchor(
+  position: BadgePosition,
+  viewportWidth: number,
+  viewportHeight: number
+): AnchorPoint {
   const anchorPoints = getAnchorPoints(viewportWidth, viewportHeight);
   const fallbackAnchor = anchorPoints[DEFAULT_ANCHOR_INDEX] ?? anchorPoints[0];
 
@@ -54,7 +61,10 @@ export function findNearestAnchor(position: BadgePosition, viewportWidth: number
   }
 
   return anchorPoints.reduce((nearest, point) => {
-    const nearestDistance = Math.hypot(nearest.x - position.x, nearest.y - position.y);
+    const nearestDistance = Math.hypot(
+      nearest.x - position.x,
+      nearest.y - position.y
+    );
     const distance = Math.hypot(point.x - position.x, point.y - position.y);
 
     return distance < nearestDistance ? point : nearest;

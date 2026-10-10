@@ -9,10 +9,10 @@
     "typecheck": "tsc --noEmit",
     "registry:build": "shadcn build registry.json --output ./public/r",
     "postinstall": "fumadocs-mdx",
-    "check": "ultracite check",
-    "fix": "ultracite fix",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint --fix .",
+    "check": "ultracite check --config ../../oxlint.config.ts",
+    "fix": "ultracite fix --config ../../oxlint.config.ts",
+    "lint": "oxlint --config ../../oxlint.config.ts .",
+    "lint:fix": "oxlint --config ../../oxlint.config.ts --fix .",
     "prepare": "lefthook install"
   },
   "dependencies": {

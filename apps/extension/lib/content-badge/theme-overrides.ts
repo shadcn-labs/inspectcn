@@ -1,4 +1,8 @@
-import { type ActiveThemeSnapshot, buildThemeBlock, TRACKED_CSS_VARS } from "@/lib/content-badge/theme-tokens";
+import {
+  type ActiveThemeSnapshot,
+  buildThemeBlock,
+  TRACKED_CSS_VARS,
+} from "@/lib/content-badge/theme-tokens";
 
 const CAPTURED_THEME_KEY = "inspectcn:captured-theme";
 const LOCALHOST_THEME_KEY = "inspectcn:localhost-themes";
@@ -15,13 +19,20 @@ export type CapturedThemeDraft = {
 type LocalhostThemeMap = Record<string, CapturedThemeDraft>;
 
 function getLocalhostMapValue(value: unknown): LocalhostThemeMap {
-  return typeof value === "object" && value !== null ? (value as LocalhostThemeMap) : {};
+  return typeof value === "object" && value !== null
+    ? (value as LocalhostThemeMap)
+    : {};
 }
 
 export function isLocalhostPage(url = window.location.href) {
   try {
     const { hostname, protocol } = new URL(url);
-    return protocol === "http:" && (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "0.0.0.0");
+    return (
+      protocol === "http:" &&
+      (hostname === "localhost" ||
+        hostname === "127.0.0.1" ||
+        hostname === "0.0.0.0")
+    );
   } catch {
     return false;
   }
@@ -54,10 +65,9 @@ export function removeThemeDraftFromDocument() {
 }
 
 export async function readCapturedThemeDraft() {
-  const stored = (await browser.storage.local.get(CAPTURED_THEME_KEY)) as Record<
-    string,
-    CapturedThemeDraft | undefined
-  >;
+  const stored = (await browser.storage.local.get(
+    CAPTURED_THEME_KEY
+  )) as Record<string, CapturedThemeDraft | undefined>;
 
   return stored[CAPTURED_THEME_KEY] ?? null;
 }
@@ -84,19 +94,20 @@ export async function clearCapturedThemeDraft() {
 }
 
 export async function readLocalhostThemeForOrigin(origin: string) {
-  const stored = (await browser.storage.local.get(LOCALHOST_THEME_KEY)) as Record<
-    string,
-    LocalhostThemeMap | undefined
-  >;
+  const stored = (await browser.storage.local.get(
+    LOCALHOST_THEME_KEY
+  )) as Record<string, LocalhostThemeMap | undefined>;
 
   return getLocalhostMapValue(stored[LOCALHOST_THEME_KEY])[origin] ?? null;
 }
 
-export async function saveLocalhostThemeForOrigin(origin: string, draft: CapturedThemeDraft) {
-  const stored = (await browser.storage.local.get(LOCALHOST_THEME_KEY)) as Record<
-    string,
-    LocalhostThemeMap | undefined
-  >;
+export async function saveLocalhostThemeForOrigin(
+  origin: string,
+  draft: CapturedThemeDraft
+) {
+  const stored = (await browser.storage.local.get(
+    LOCALHOST_THEME_KEY
+  )) as Record<string, LocalhostThemeMap | undefined>;
   const nextMap = {
     ...getLocalhostMapValue(stored[LOCALHOST_THEME_KEY]),
     [origin]: draft,
@@ -110,10 +121,9 @@ export async function saveLocalhostThemeForOrigin(origin: string, draft: Capture
 }
 
 export async function clearLocalhostThemeForOrigin(origin: string) {
-  const stored = (await browser.storage.local.get(LOCALHOST_THEME_KEY)) as Record<
-    string,
-    LocalhostThemeMap | undefined
-  >;
+  const stored = (await browser.storage.local.get(
+    LOCALHOST_THEME_KEY
+  )) as Record<string, LocalhostThemeMap | undefined>;
   const nextMap = {
     ...getLocalhostMapValue(stored[LOCALHOST_THEME_KEY]),
   };

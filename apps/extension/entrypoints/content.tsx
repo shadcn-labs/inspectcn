@@ -1,5 +1,4 @@
 import "@/assets/content-ui.css";
-
 import ReactDOM from "react-dom/client";
 
 import { ContentBadgeApp } from "@/components/content-badge-app";

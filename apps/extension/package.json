@@ -1,8 +1,8 @@
 {
   "name": "inspectcn",
-  "description": "Chrome extension to inspect and extract shadcn-style theme tokens from any website, then bring them into your project.",
-  "private": true,
   "version": "1.0.1",
+  "private": true,
+  "description": "Chrome extension to inspect and extract shadcn-style theme tokens from any website, then bring them into your project.",
   "type": "module",
   "scripts": {
     "dev": "wxt",
@@ -13,10 +13,10 @@
     "zip:firefox": "wxt zip -b firefox",
     "typecheck": "tsc --noEmit",
     "postinstall": "wxt prepare",
-    "check": "ultracite check",
-    "fix": "ultracite fix",
-    "lint": "oxlint .",
-    "lint:fix": "oxlint --fix ."
+    "check": "ultracite check --config ../../oxlint.config.ts",
+    "fix": "ultracite fix --config ../../oxlint.config.ts",
+    "lint": "oxlint --config ../../oxlint.config.ts .",
+    "lint:fix": "oxlint --config ../../oxlint.config.ts --fix ."
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",

@@ -7,6 +7,7 @@
     "check": {
       "inputs": [
         "$TURBO_DEFAULT$",
+        "$TURBO_ROOT$/oxlint.config.ts",
         "$TURBO_ROOT$/oxfmt.config.ts"
       ]
     },
@@ -17,7 +18,9 @@
     "fix": {
       "cache": false
     },
-    "lint": {},
+    "lint": {
+      "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/oxlint.config.ts"]
+    },
     "lint:fix": {
       "cache": false
     },

@@ -39,9 +39,21 @@ const SAMPLE_POINTS = [
   [0.7, 0.7],
 ] as const;
 
-const DIRECT_COLOR_PREFIXES = ["#", "rgb(", "rgba(", "hsl(", "hsla(", "oklch(", "oklab(", "lab(", "lch(", "color("];
+const DIRECT_COLOR_PREFIXES = [
+  "#",
+  "rgb(",
+  "rgba(",
+  "hsl(",
+  "hsla(",
+  "oklch(",
+  "oklab(",
+  "lab(",
+  "lch(",
+  "color(",
+];
 
-const HSL_FRAGMENT_RE = /^\d+(\.\d+)?\s+\d+(\.\d+)?%\s+\d+(\.\d+)?%(\s*\/\s*[\d.]+)?$/;
+const HSL_FRAGMENT_RE =
+  /^\d+(\.\d+)?\s+\d+(\.\d+)?%\s+\d+(\.\d+)?%(\s*\/\s*[\d.]+)?$/;
 const OKLCH_FRAGMENT_RE = /^0?\.\d+\s+0?\.\d+\s+\d+(\.\d+)?(\s*\/\s*[\d.]+)?$/;
 
 export const TOKEN_GROUPS: TokenGroup[] = [
@@ -101,7 +113,9 @@ function normalizeValue(value: string) {
   return value.trim();
 }
 
-export const TRACKED_CSS_VARS = TOKEN_GROUPS.flatMap((group) => group.tokens.map((token) => `--${token}` as const));
+export const TRACKED_CSS_VARS = TOKEN_GROUPS.flatMap((group) =>
+  group.tokens.map((token) => `--${token}` as const)
+);
 
 const DETECTION_TOKENS = ["--radius" as const, ...TRACKED_CSS_VARS];
 
@@ -113,7 +127,10 @@ function isInspectcnElement(element: Element) {
   const rootNode = element.getRootNode();
 
   if (rootNode instanceof ShadowRoot) {
-    return rootNode.host instanceof Element && rootNode.host.matches("[data-inspectcn-ui='true']");
+    return (
+      rootNode.host instanceof Element &&
+      rootNode.host.matches("[data-inspectcn-ui='true']")
+    );
   }
 
   return false;
@@ -131,11 +148,15 @@ function isVisibleElement(element: Element) {
 }
 
 function createEmptyTokenMap() {
-  return Object.fromEntries(DETECTION_TOKENS.map((token) => [token, ""])) as Record<`--${string}`, string>;
+  return Object.fromEntries(
+    DETECTION_TOKENS.map((token) => [token, ""])
+  ) as Record<`--${string}`, string>;
 }
 
 function countFilledTokens(tokens: TokenMap) {
-  return Object.values(tokens).filter((value) => normalizeValue(value ?? "").length > 0).length;
+  return Object.values(tokens).filter(
+    (value) => normalizeValue(value ?? "").length > 0
+  ).length;
 }
 
 function readTokensFromStyle(style: CSSStyleDeclaration) {
@@ -153,11 +174,16 @@ function readTokensFromElement(element: Element) {
 }
 
 function pickBetterTokenMap(...candidates: TokenMap[]) {
-  return candidates.sort((a, b) => countFilledTokens(b) - countFilledTokens(a))[0] ?? createEmptyTokenMap();
+  return (
+    candidates.sort((a, b) => countFilledTokens(b) - countFilledTokens(a))[0] ??
+    createEmptyTokenMap()
+  );
 }
 
 function getDirectPreviewValue(value: string) {
-  return DIRECT_COLOR_PREFIXES.some((prefix) => value.startsWith(prefix)) ? value : "";
+  return DIRECT_COLOR_PREFIXES.some((prefix) => value.startsWith(prefix))
+    ? value
+    : "";
 }
 
 function getPreviewValue(value: string) {
@@ -198,10 +224,14 @@ function buildSnapshotFromTokens(tokens: TokenMap): ThemeSnapshot {
     }),
   }));
 
-  const totalCount = groups.reduce((count, group) => count + group.values.length, 0);
+  const totalCount = groups.reduce(
+    (count, group) => count + group.values.length,
+    0
+  );
   const foundCount = groups.reduce(
-    (count, group) => count + group.values.filter((token) => !token.isMissing).length,
-    0,
+    (count, group) =>
+      count + group.values.filter((token) => !token.isMissing).length,
+    0
   );
 
   return {
@@ -212,7 +242,9 @@ function buildSnapshotFromTokens(tokens: TokenMap): ThemeSnapshot {
 }
 
 function isMeaningfulColor(value: string) {
-  return Boolean(value) && value !== "transparent" && value !== "rgba(0, 0, 0, 0)";
+  return (
+    Boolean(value) && value !== "transparent" && value !== "rgba(0, 0, 0, 0)"
+  );
 }
 
 function resolveColorToRgb(value: string) {
@@ -248,19 +280,27 @@ function parseRgbColor(value: string) {
     return null;
   }
 
-  const [red = "", green = "", blue = ""] = match[1].split(",").map((part) => part.trim());
+  const [red = "", green = "", blue = ""] = match[1]
+    .split(",")
+    .map((part) => part.trim());
   const channels = [red, green, blue].map((part) => Number.parseFloat(part));
 
-  return channels.every((channel) => Number.isFinite(channel)) ? channels : null;
+  return channels.every((channel) => Number.isFinite(channel))
+    ? channels
+    : null;
 }
 
 function getRelativeLuminance(red: number, green: number, blue: number) {
   const toLinear = (channel: number) => {
     const normalized = channel / 255;
-    return normalized <= 0.03928 ? normalized / 12.92 : ((normalized + 0.055) / 1.055) ** 2.4;
+    return normalized <= 0.03928
+      ? normalized / 12.92
+      : ((normalized + 0.055) / 1.055) ** 2.4;
   };
 
-  return 0.2126 * toLinear(red) + 0.7152 * toLinear(green) + 0.0722 * toLinear(blue);
+  return (
+    0.2126 * toLinear(red) + 0.7152 * toLinear(green) + 0.0722 * toLinear(blue)
+  );
 }
 
 function inferThemeModeFromBackgroundValue(value: string) {
@@ -271,11 +311,19 @@ function inferThemeModeFromBackgroundValue(value: string) {
     return null;
   }
 
-  return getRelativeLuminance(rgbColor[0] ?? 255, rgbColor[1] ?? 255, rgbColor[2] ?? 255) < 0.33 ? "dark" : "light";
+  return getRelativeLuminance(
+    rgbColor[0] ?? 255,
+    rgbColor[1] ?? 255,
+    rgbColor[2] ?? 255
+  ) < 0.33
+    ? "dark"
+    : "light";
 }
 
 function inferThemeMode(tokens: TokenMap): ThemeMode {
-  return inferThemeModeFromBackgroundValue(tokens["--background"] ?? "") ?? "light";
+  return (
+    inferThemeModeFromBackgroundValue(tokens["--background"] ?? "") ?? "light"
+  );
 }
 
 function getExplicitModeFromElement(element: Element | null) {
@@ -293,9 +341,15 @@ function getExplicitModeFromElement(element: Element | null) {
     return "light" as const;
   }
 
-  const dataTheme = normalizeValue(element.getAttribute("data-theme") ?? "").toLowerCase();
-  const dataMode = normalizeValue(element.getAttribute("data-mode") ?? "").toLowerCase();
-  const dataColorScheme = normalizeValue(element.getAttribute("data-color-scheme") ?? "").toLowerCase();
+  const dataTheme = normalizeValue(
+    element.getAttribute("data-theme") ?? ""
+  ).toLowerCase();
+  const dataMode = normalizeValue(
+    element.getAttribute("data-mode") ?? ""
+  ).toLowerCase();
+  const dataColorScheme = normalizeValue(
+    element.getAttribute("data-color-scheme") ?? ""
+  ).toLowerCase();
 
   for (const value of [dataTheme, dataMode, dataColorScheme]) {
     if (value === "dark") {
@@ -307,7 +361,9 @@ function getExplicitModeFromElement(element: Element | null) {
     }
   }
 
-  const colorScheme = normalizeValue(getComputedStyle(element).colorScheme).toLowerCase();
+  const colorScheme = normalizeValue(
+    getComputedStyle(element).colorScheme
+  ).toLowerCase();
 
   if (colorScheme.includes("dark")) {
     return "dark" as const;
@@ -321,48 +377,70 @@ function getExplicitModeFromElement(element: Element | null) {
 }
 
 function inferThemeModeFromDocument() {
-  return getExplicitModeFromElement(document.documentElement) ?? getExplicitModeFromElement(document.body);
+  return (
+    getExplicitModeFromElement(document.documentElement) ??
+    getExplicitModeFromElement(document.body)
+  );
 }
 
 function inferThemeModeFromPage(): ThemeMode | null {
   const backgroundVotes = new Map<string, number>();
 
   for (const [pointX, pointY] of SAMPLE_POINTS) {
-    const stack = document.elementsFromPoint(window.innerWidth * pointX, window.innerHeight * pointY);
+    const stack = document.elementsFromPoint(
+      window.innerWidth * pointX,
+      window.innerHeight * pointY
+    );
 
     for (const element of stack) {
       if (isInspectcnElement(element) || !isVisibleElement(element)) {
         continue;
       }
 
-      const backgroundColor = normalizeValue(getComputedStyle(element).backgroundColor);
+      const backgroundColor = normalizeValue(
+        getComputedStyle(element).backgroundColor
+      );
 
       if (!isMeaningfulColor(backgroundColor)) {
         continue;
       }
 
-      backgroundVotes.set(backgroundColor, (backgroundVotes.get(backgroundColor) ?? 0) + 1);
+      backgroundVotes.set(
+        backgroundColor,
+        (backgroundVotes.get(backgroundColor) ?? 0) + 1
+      );
       break;
     }
   }
 
-  const activeBackground = [...backgroundVotes.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+  const activeBackground = [...backgroundVotes.entries()].sort(
+    (a, b) => b[1] - a[1]
+  )[0]?.[0];
   const rgbColor = activeBackground ? parseRgbColor(activeBackground) : null;
 
   if (!rgbColor) {
     return null;
   }
 
-  return getRelativeLuminance(rgbColor[0] ?? 255, rgbColor[1] ?? 255, rgbColor[2] ?? 255) < 0.33 ? "dark" : "light";
+  return getRelativeLuminance(
+    rgbColor[0] ?? 255,
+    rgbColor[1] ?? 255,
+    rgbColor[2] ?? 255
+  ) < 0.33
+    ? "dark"
+    : "light";
 }
 
 function readActiveTokens() {
   const tokenVotes = new Map<`--${string}`, Map<string, number>>(
-    DETECTION_TOKENS.map((token) => [token, new Map<string, number>()]),
+    DETECTION_TOKENS.map((token) => [token, new Map<string, number>()])
   );
 
   for (const [pointX, pointY] of SAMPLE_POINTS) {
-    const stack = document.elementsFromPoint(window.innerWidth * pointX, window.innerHeight * pointY);
+    const stack = document.elementsFromPoint(
+      window.innerWidth * pointX,
+      window.innerHeight * pointY
+    );
 
     for (const element of stack) {
       if (isInspectcnElement(element) || !isVisibleElement(element)) {
@@ -397,15 +475,19 @@ function readActiveTokens() {
 
   return Object.fromEntries(
     DETECTION_TOKENS.map((token) => {
-      const winningEntry = [...(tokenVotes.get(token)?.entries() ?? [])].sort((a, b) => b[1] - a[1])[0];
+      const winningEntry = [...(tokenVotes.get(token)?.entries() ?? [])].sort(
+        (a, b) => b[1] - a[1]
+      )[0];
       return [token, winningEntry?.[0] ?? ""];
-    }),
+    })
   ) as TokenMap;
 }
 
 function readBaseTokens() {
   const rootTokens = readTokensFromElement(document.documentElement);
-  const bodyTokens = document.body ? readTokensFromElement(document.body) : createEmptyTokenMap();
+  const bodyTokens = document.body
+    ? readTokensFromElement(document.body)
+    : createEmptyTokenMap();
 
   return pickBetterTokenMap(rootTokens, bodyTokens);
 }

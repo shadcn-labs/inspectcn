@@ -18,6 +18,7 @@ export default defineConfig({
     "**/.cursor/**",
     "apps/extension/.output/**",
     "apps/extension/.wxt/**",
+    "apps/extension/components/ui/**",
     "apps/web/.source/**",
     "apps/web/.web-kits/**",
     "apps/web/audio/**",

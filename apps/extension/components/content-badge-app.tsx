@@ -66,7 +66,10 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
     let cancelled = false;
 
     const readAnchor = async () => {
-      const stored = (await browser.storage.local.get(STORAGE_KEY)) as Record<string, number | undefined>;
+      const stored = (await browser.storage.local.get(STORAGE_KEY)) as Record<
+        string,
+        number | undefined
+      >;
 
       if (cancelled) {
         return;
@@ -136,7 +139,10 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
     };
 
     const finishDrag = async (event: PointerEvent) => {
-      if (pointerIdRef.current === null || event.pointerId !== pointerIdRef.current) {
+      if (
+        pointerIdRef.current === null ||
+        event.pointerId !== pointerIdRef.current
+      ) {
         return;
       }
 
@@ -159,7 +165,11 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
         return;
       }
 
-      const nearestAnchor = findNearestAnchor(dragPosition, viewport.width, viewport.height);
+      const nearestAnchor = findNearestAnchor(
+        dragPosition,
+        viewport.width,
+        viewport.height
+      );
 
       hasMovedRef.current = false;
       setDragPosition(null);
@@ -244,7 +254,7 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
               <Button
                 className={cn(
                   "touch-none select-none shadow-[0_8px_24px_rgba(15,23,42,0.18)]",
-                  isDragging ? "cursor-grabbing" : "cursor-grab",
+                  isDragging ? "cursor-grabbing" : "cursor-grab"
                 )}
                 size="icon-lg"
                 variant="secondary"
@@ -263,8 +273,12 @@ export function ContentBadgeApp({ shadowRoot }: { shadowRoot: ShadowRoot }) {
             sideOffset={10}
           >
             <PopoverHeader className="gap-0.5">
-              <PopoverTitle className="font-pixel-line tracking-tight">Inspectcn</PopoverTitle>
-              <PopoverDescription className="text-xs">Inspect theme tokens on this page.</PopoverDescription>
+              <PopoverTitle className="font-pixel-line tracking-tight">
+                Inspectcn
+              </PopoverTitle>
+              <PopoverDescription className="text-xs">
+                Inspect theme tokens on this page.
+              </PopoverDescription>
             </PopoverHeader>
             <Separator />
 
