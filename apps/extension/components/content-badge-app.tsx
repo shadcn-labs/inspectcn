@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { cn } from "cn";
 
 import {
   ThemeCapturePanel,
@@ -27,6 +26,7 @@ import {
   getPopoverPlacement,
 } from "@/lib/content-badge/anchors";
 import { applyStoredLocalhostThemeForCurrentPage } from "@/lib/content-badge/theme-overrides";
+import { cn } from "@/lib/utils";
 
 const DRAG_THRESHOLD = 6;
 const STORAGE_KEY = "inspectcn:anchor-index";
