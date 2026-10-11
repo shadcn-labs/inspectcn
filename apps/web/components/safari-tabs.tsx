@@ -9,6 +9,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Safari } from "@/components/ui/safari";
 import { cn } from "@/lib/utils";
 
+// Match the SVG screen's 11-unit radius at every frame width.
+const screenRadius = `${(11 / 1203) * 100}cqw`;
+const screenBorderRadius = `0 0 ${screenRadius} ${screenRadius}`;
+
 const tabs = [
   {
     icon: Globe,
@@ -81,6 +85,7 @@ export const SafariTabs = () => {
     <Tabs.Root
       ref={setFrame}
       className="relative w-full max-w-6xl"
+      style={{ containerType: "inline-size" }}
       value={activeTab}
       onValueChange={setActiveTab}
     >
@@ -109,8 +114,9 @@ export const SafariTabs = () => {
       </svg>
       <Safari url={tabs[Number(activeTab)].url} />
       <div
-        className="absolute z-20 flex flex-col items-center justify-center gap-2 rounded-b-xl bg-background px-4 text-center lg:hidden"
+        className="absolute z-20 flex flex-col items-center justify-center gap-2 overflow-hidden bg-background px-4 text-center lg:hidden"
         style={{
+          borderRadius: screenBorderRadius,
           bottom: `${(1 / 753) * 100}%`,
           left: `${(1 / 1203) * 100}%`,
           top: `${(52 / 753) * 100}%`,
@@ -154,8 +160,9 @@ export const SafariTabs = () => {
           key={tabs[index].url}
           value={String(index)}
           forceMount
-          className="absolute z-20 hidden overflow-hidden rounded-b-xl bg-background lg:block data-[state=inactive]:hidden"
+          className="absolute z-20 hidden overflow-hidden bg-background lg:block data-[state=inactive]:hidden"
           style={{
+            borderRadius: screenBorderRadius,
             bottom: `${(1 / 753) * 100}%`,
             left: `${(1 / 1203) * 100}%`,
             top: `calc(${(52 / 753) * 100}% + 36px)`,
