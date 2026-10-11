@@ -146,6 +146,7 @@ export const KanbanBoard = () => {
 
   return (
     <div
+      data-demo-kanban="true"
       className={`${styles.board} flex min-h-full flex-col gap-6 bg-background p-6 text-left text-foreground`}
     >
       <div className="flex items-center justify-between border-b pb-5">

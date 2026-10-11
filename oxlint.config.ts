@@ -21,11 +21,12 @@ export default defineConfig({
     "apps/extension/.output/**",
     "apps/extension/.wxt/**",
     "apps/extension/components/ui/**",
+    "packages/inspector/ui/**",
   ],
   overrides: [
     {
       env: { browser: true, webextensions: true },
-      files: ["apps/extension/**"],
+      files: ["apps/extension/**", "packages/inspector/**"],
       globals: {
         browser: "readonly",
         createShadowRootUi: "readonly",

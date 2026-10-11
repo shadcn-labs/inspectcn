@@ -2,6 +2,8 @@
 @import "tw-animate-css";
 
 @import "./themes.css";
+@import "../../../packages/inspector/styles.css";
+@source "../../../packages/inspector";
 
 @custom-variant dark (&:is(.dark *));
 

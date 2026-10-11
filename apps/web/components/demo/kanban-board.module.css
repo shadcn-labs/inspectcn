@@ -33,7 +33,7 @@
 }
 
 .task {
-  border-radius: 0.75rem;
+  border-radius: var(--radius);
 }
 
 .high {

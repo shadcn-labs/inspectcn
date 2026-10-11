@@ -1,11 +1,11 @@
 "use client";
 
+import type { CapturedThemeDraft } from "@inspectcn/inspector/types";
 import { Globe, Monitor } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Tabs } from "radix-ui";
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 
-import { CrmDashboard } from "@/components/demo/crm/crm-dashboard";
-import { KanbanBoard } from "@/components/demo/kanban-board";
 import { Safari } from "@/components/ui/safari";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +19,49 @@ const tabs = [
 ];
 
 export const SafariTabs = () => {
+  const { resolvedTheme } = useTheme();
+  const frames = useRef<(HTMLIFrameElement | null)[]>([]);
+  const [capturedDraft, setCapturedDraft] = useState<CapturedThemeDraft | null>(
+    null
+  );
+  const sendState = (target: Window | null) =>
+    target?.postMessage(
+      {
+        draft: capturedDraft,
+        mode: resolvedTheme,
+        type: "inspectcn-demo-state",
+      },
+      window.location.origin
+    );
+
+  useEffect(() => {
+    const receive = (event: MessageEvent) => {
+      if (
+        event.origin !== window.location.origin ||
+        !frames.current.some((frame) => frame?.contentWindow === event.source)
+      ) {
+        return;
+      }
+      if (event.data?.type === "inspectcn-demo-capture") {
+        setCapturedDraft(event.data.draft ?? null);
+      }
+      if (event.data?.type === "inspectcn-demo-ready") {
+        sendState(event.source as Window);
+      }
+      if (
+        event.data?.type === "inspectcn-demo-scroll" &&
+        typeof event.data.deltaY === "number"
+      ) {
+        window.scrollBy({ behavior: "instant", top: event.data.deltaY });
+      }
+    };
+    window.addEventListener("message", receive);
+    for (const frame of frames.current) {
+      sendState(frame?.contentWindow ?? null);
+    }
+    return () => window.removeEventListener("message", receive);
+  }, [capturedDraft, resolvedTheme]);
+
   const [activeTab, setActiveTab] = useState("0");
   const [frame, setFrame] = useState<HTMLDivElement | null>(null);
   const [scale, setScale] = useState<number | null>(null);
@@ -67,7 +110,7 @@ export const SafariTabs = () => {
           </Tabs.Trigger>
         ))}
       </Tabs.List>
-      {[CrmDashboard, KanbanBoard].map((Content, index) => (
+      {tabs.map((tab, index) => (
         <Tabs.Content
           key={tabs[index].url}
           value={String(index)}
@@ -80,22 +123,25 @@ export const SafariTabs = () => {
             width: `${(1200 / 1203) * 100}%`,
           }}
         >
-          <div
-            aria-label={
+          <iframe
+            ref={(node) => {
+              frames.current[index] = node;
+            }}
+            title={
               index === 0 ? "CRM dashboard preview" : "Kanban board preview"
             }
-            role="region"
-            tabIndex={0}
-            className="absolute top-0 left-0 origin-top-left overflow-auto"
+            src={index === 0 ? "/demo/crm" : "/demo/kanban"}
+            onLoad={() =>
+              sendState(frames.current[index]?.contentWindow ?? null)
+            }
+            className="absolute top-0 left-0 origin-top-left border-0"
             style={{
               height: `${100 / (scale ?? 1)}%`,
               transform: `scale(${scale ?? 1})`,
               visibility: scale === null ? "hidden" : "visible",
               width: 1280,
             }}
-          >
-            <Content />
-          </div>
+          />
         </Tabs.Content>
       ))}
     </Tabs.Root>

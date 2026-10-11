@@ -2,19 +2,11 @@ import {
   type ActiveThemeSnapshot,
   buildThemeBlock,
   TRACKED_CSS_VARS,
-} from "@/lib/content-badge/theme-tokens";
+} from "@inspectcn/inspector/theme-tokens";
+import type { CapturedThemeDraft } from "@inspectcn/inspector/types";
 
 const CAPTURED_THEME_KEY = "inspectcn:captured-theme";
 const LOCALHOST_THEME_KEY = "inspectcn:localhost-themes";
-
-export type CapturedThemeDraft = {
-  capturedAt: number;
-  mode: "light" | "dark";
-  radius: string;
-  snapshot: ActiveThemeSnapshot["snapshot"];
-  sourceTitle: string;
-  sourceUrl: string;
-};
 
 type LocalhostThemeMap = Record<string, CapturedThemeDraft>;
 

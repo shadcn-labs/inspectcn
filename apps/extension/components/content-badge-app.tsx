@@ -1,14 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-
 import {
   ThemeCapturePanel,
   ThemeTokenEmptyState,
   ThemeTokenLoadingState,
   ThemeTokenTabs,
-  useThemeTokenInspector,
-} from "@/components/theme-token-inspector";
-import { Button } from "@/components/ui/button";
-import { InspectcnLogo } from "@/components/ui/inspectcn-logo";
+} from "@inspectcn/inspector/panel";
+import { Button } from "@inspectcn/inspector/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -16,8 +12,12 @@ import {
   PopoverHeader,
   PopoverTitle,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
+} from "@inspectcn/inspector/ui/popover";
+import { Separator } from "@inspectcn/inspector/ui/separator";
+import { useEffect, useRef, useState } from "react";
+
+import { useThemeTokenInspector } from "@/components/theme-token-inspector";
+import { InspectcnLogo } from "@/components/ui/inspectcn-logo";
 import {
   type BadgePosition,
   DEFAULT_ANCHOR_INDEX,

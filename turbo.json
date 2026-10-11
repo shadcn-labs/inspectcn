@@ -8,6 +8,7 @@
       "dependsOn": ["^build"]
     },
     "check": {
+      "dependsOn": ["^check"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/oxlint.config.ts",
@@ -29,6 +30,7 @@
       "cache": false
     },
     "format:check": {
+      "dependsOn": ["^format:check"],
       "inputs": [
         "$TURBO_DEFAULT$",
         "$TURBO_ROOT$/oxfmt.config.ts",
@@ -42,6 +44,7 @@
       "cache": false
     },
     "lint": {
+      "dependsOn": ["^lint"],
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/oxlint.config.ts"]
     },
     "lint:fix": {
@@ -56,6 +59,7 @@
       "persistent": true
     },
     "typecheck": {
+      "dependsOn": ["^typecheck"],
       "outputs": ["*.tsbuildinfo"]
     },
     "zip": {

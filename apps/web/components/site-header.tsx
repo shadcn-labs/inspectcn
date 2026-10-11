@@ -14,9 +14,7 @@ import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
 import { source } from "@/lib/source";
 
-const navItems = [
-  { href: ROUTES.DOCS, label: "Docs" },
-];
+const navItems = [{ href: ROUTES.DOCS, label: "Docs" }];
 
 export const SiteHeader = () => (
   <header

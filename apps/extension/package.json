@@ -23,6 +23,7 @@
   "dependencies": {
     "@base-ui/react": "^1.9.0",
     "@inspectcn/brand": "workspace:*",
+    "@inspectcn/inspector": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "cn": "^0.4.0",
     "geist": "^1.7.0",

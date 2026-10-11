@@ -1,4 +1,5 @@
 @import "./ui-theme.css";
+@source "../../../packages/inspector";
 
 @layer base {
   :host {

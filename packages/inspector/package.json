@@ -1,0 +1,31 @@
+{
+  "name": "@inspectcn/inspector",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./panel": "./inspector-panel.tsx",
+    "./theme-tokens": "./theme-tokens.ts",
+    "./types": "./types.ts",
+    "./ui/*": "./ui/*.tsx",
+    "./styles.css": "./styles.css"
+  },
+  "scripts": {
+    "lint": "oxlint --config ../../oxlint.config.ts .",
+    "lint:fix": "oxlint --config ../../oxlint.config.ts --fix .",
+    "format": "oxfmt --config ../../oxfmt.config.ts --write .",
+    "format:check": "oxfmt --config ../../oxfmt.config.ts --check ."
+  },
+  "dependencies": {
+    "@base-ui/react": "^1.9.0",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.4.0",
+    "lucide-react": "1.11.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0"
+  },
+  "peerDependencies": {
+    "react": "19.3.0"
+  }
+}
