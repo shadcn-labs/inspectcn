@@ -1,4 +1,5 @@
 import {
+  Caveat,
   Geist_Mono as FontMono,
   Geist as FontSans,
   Inter,
@@ -22,8 +23,15 @@ const fontInter = Inter({
   variable: "--font-inter",
 });
 
+const fontHandwriting = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwriting",
+  weight: "500",
+});
+
 export const fontVariables = cn(
   fontSans.variable,
   fontMono.variable,
-  fontInter.variable
+  fontInter.variable,
+  fontHandwriting.variable
 );

@@ -84,10 +84,49 @@ export const SafariTabs = () => {
       value={activeTab}
       onValueChange={setActiveTab}
     >
+      <p
+        className="pointer-events-none absolute -top-24 right-12 hidden max-w-80 -rotate-3 text-xl font-medium leading-tight text-muted-foreground lg:block"
+        style={{ fontFamily: "var(--font-handwriting), cursive" }}
+      >
+        Give it a try!
+        <br />
+        Capture theme from Dashboard &amp; try applying on localhost.
+      </p>
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-12 -right-10 z-30 hidden w-54 text-muted-foreground lg:block"
+        style={{ height: `calc(${(52 / 753) * 100}% + 128px)` }}
+        viewBox="0 0 216 180"
+        preserveAspectRatio="none"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M152 8C220 34 228 90 188 156" />
+        <path d="M193 142L188 156L202 150" />
+      </svg>
       <Safari url={tabs[Number(activeTab)].url} />
+      <div
+        className="absolute z-20 flex flex-col items-center justify-center gap-2 rounded-b-xl bg-background px-4 text-center lg:hidden"
+        style={{
+          bottom: `${(1 / 753) * 100}%`,
+          left: `${(1 / 1203) * 100}%`,
+          top: `${(52 / 753) * 100}%`,
+          width: `${(1200 / 1203) * 100}%`,
+        }}
+      >
+        <p className="text-sm font-medium sm:text-base">
+          Try the interactive demo on desktop
+        </p>
+        <p className="max-w-sm text-xs text-muted-foreground sm:text-sm">
+          Open this page on a larger screen to capture and apply themes.
+        </p>
+      </div>
       <Tabs.List
         aria-label="Browser tabs"
-        className="absolute z-20 flex h-9 items-stretch gap-px border-b bg-muted/70 p-1"
+        className="absolute z-20 hidden h-9 items-stretch gap-px border-b bg-muted/70 p-1 lg:flex"
         style={{
           left: `${(1 / 1203) * 100}%`,
           top: `${(52 / 753) * 100}%`,
@@ -115,7 +154,7 @@ export const SafariTabs = () => {
           key={tabs[index].url}
           value={String(index)}
           forceMount
-          className="absolute z-20 overflow-hidden rounded-b-xl bg-background data-[state=inactive]:hidden"
+          className="absolute z-20 hidden overflow-hidden rounded-b-xl bg-background lg:block data-[state=inactive]:hidden"
           style={{
             bottom: `${(1 / 753) * 100}%`,
             left: `${(1 / 1203) * 100}%`,

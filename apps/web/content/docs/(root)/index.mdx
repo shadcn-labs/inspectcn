@@ -1,83 +1,39 @@
 ---
 title: Introduction
-description: Chrome extension to inspect and extract shadcn-style theme tokens from any website, then bring them into your project.
+description: Inspect, copy, and capture shadcn-style theme tokens with inspectcn.
 ---
 
 **inspectcn** is a Chrome extension to inspect and extract shadcn-style theme tokens from any website, then bring them into your project.
 
-Visit [inspectcn](https://inspectcn.arhamkhnz.com) or explore the source on [GitHub](https://github.com/shadcn-labs/inspectcn). The website also includes a sample [shadcn registry](https://ui.shadcn.com/docs/registry) for development.
+## What you can do
 
-## What You Get
+- Inspect the active theme tokens, grouped into surfaces, semantic colors, charts, and sidebar colors.
+- Copy individual tokens or the current theme as CSS.
+- Capture a theme and reuse it on another page.
+- Apply a captured theme to localhost and reset the preview when you are done.
 
-- 📦 **Simple structure** - One component file + one config file
-- 📚 **Documentation site** - Powered by Fumadocs
-- 🎨 **Registry compatible** - Works with `npx shadcn add`
-- 🤖 **Agent ready** - Ships with `llms.txt`, `llms-full.txt`, API catalog routes, and agent skill discovery endpoints
-- 🔊 **[Web audio feedback](https://audio.raphaelsalaja.com/)** - Built-in interaction sounds powered by `@web-kits/audio`
-- 📳 **[Web haptics](https://haptics.lochie.me/)** - Optional haptic feedback for supported devices via `web-haptics`
-- ✨ **[Motion animations](https://motion.dev/)** - Uses `motion` for animated UI states and transitions
-- 🎯 **[Animated icons](https://lucide-animated.com/)** - Includes reusable animated icons for buttons, sharing, and navigation
-- 🔄 **[View transitions](https://nextjs.org/docs/app/api-reference/config/next-config-js/viewTransition)** - Uses Next.js view transitions for smoother page changes
-- 🚀 **Deploy ready** - Deploy anywhere
+## How it works
 
-## Tech Stack
+Open the inspectcn badge on a website to read its active theme. inspectcn samples visible elements and reads their computed CSS custom properties, including values inside nested theme wrappers.
 
-- `Next.js 16` + App Router
-- `React 19`
-- `Tailwind CSS 4`
-- `Fumadocs`
-- `motion`
-- `@web-kits/audio`
-- `web-haptics`
-- `shiki` + `rehype-pretty-code`
+It reads the page's current light or dark theme. To inspect the other mode, switch the website's theme and use **Reread**.
 
-## How It Works
+Sites without shadcn-style CSS variables may show missing tokens. inspectcn does not turn every color on a page into a complete theme.
 
-1. Edit your component at `registry/new-york/your-component.tsx`
-2. Update `registry.json` with your component name and details
-3. Run `pnpm registry:build`
+## Extension tech stack
 
-That's it. Deploy your app and users can install your component:
+- **WXT** — browser extension development and packaging.
+- **React + TypeScript** — the inspector UI and extension logic.
+- **Tailwind CSS** — styling.
+- **shadcn/ui + Base UI** — UI components and accessible primitives.
+- **Lucide** — icons.
 
-```bash
-npx shadcn@latest add https://inspectcn.arhamkhnz.com/r/your-component.json
-```
+## Early development
 
-## FAQ
+inspectcn is still in early development. Theme detection can be inaccurate on sites with unusual theme systems, nested overrides, or overlays. Review the captured values before using them in your project.
 
-<Accordion type="multiple">
+More features are planned, including additional color formats, editing colors, font capture, sharing presets, and previews beyond localhost.
 
-<AccordionItem value="faq-1">
-<AccordionTrigger>
-Why copy/paste instead of npm packages?
-</AccordionTrigger>
-<AccordionContent>
+If you find an issue, [report it on GitHub](https://github.com/shadcn-labs/inspectcn/issues) with the website URL and a short description of what went wrong.
 
-The shadcn philosophy gives you **ownership** of the code. You can customize components to your exact needs without fighting library constraints.
-
-</AccordionContent>
-</AccordionItem>
-
-<AccordionItem value="faq-2">
-<AccordionTrigger>
-Which frameworks are supported?
-</AccordionTrigger>
-<AccordionContent>
-
-Any React framework: Next.js, Remix, Astro, Gatsby, Vite, etc.
-
-</AccordionContent>
-</AccordionItem>
-
-<AccordionItem value="faq-3">
-<AccordionTrigger>
-Can I publish multiple components?
-</AccordionTrigger>
-<AccordionContent>
-
-Yes! Add more files to `registry/new-york/` and list them in `registry.json`.
-
-</AccordionContent>
-</AccordionItem>
-
-</Accordion>
+[Install the extension](/docs/installation) to get started, or try the interactive demo on the [home page](/).

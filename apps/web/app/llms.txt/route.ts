@@ -23,7 +23,14 @@ const docsIndex = (origin: string) => {
 
   return `# ${SITE.NAME}
 
-> ${SITE.DESCRIPTION.LONG} Use this index to discover the available documentation pages, markdown mirrors, and registry resources before browsing.
+> ${SITE.DESCRIPTION.LONG}
+
+inspectcn is in early development. It reads active shadcn-style CSS variables, copies theme CSS, and captures themes for preview on HTTP localhost pages. Detection may be incomplete on websites with unusual theme systems.
+
+## Extension
+
+- [Add to Chrome](${LINK.CHROME_WEB_STORE})
+- [Source and issues](${LINK.GITHUB})
 
 ${documentationIndex(base)}
 
@@ -31,10 +38,6 @@ ${documentationIndex(base)}
 
 - [Full documentation](${base}${ROUTES.LLMS_FULL})
 - [Homepage markdown](${base}${ROUTES.LLMS_MD}/content.md)
-- [OpenAPI description](${base}${ROUTES.OPENAPI})
-- [API catalog](${base}${ROUTES.API_CATALOG})
-- [Agent skill](${base}${ROUTES.AGENT_SKILLS_SITE_SKILL})
-- [shadcn MCP server documentation](${LINK.SHADCN_MCP_DOCS})
 `;
 };
 

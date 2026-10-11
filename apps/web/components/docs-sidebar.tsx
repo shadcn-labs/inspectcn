@@ -21,7 +21,6 @@ import type { source } from "@/lib/source";
 const TOP_LEVEL_SECTIONS = [
   { href: ROUTES.DOCS, name: "Introduction" },
   { href: ROUTES.DOCS_INSTALLATION, name: "Installation" },
-  { href: ROUTES.DOCS_COMPONENTS, name: "Components" },
   { href: ROUTES.LLMS, name: "llms.txt" },
 ];
 

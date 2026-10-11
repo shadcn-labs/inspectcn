@@ -1,6 +1,6 @@
+import { LINK } from "@/constants/links";
 import { ROUTES } from "@/constants/routes";
 import { SITE } from "@/constants/site";
-import { AGENT_DOCS_DIRECTIVE_MARKDOWN } from "@/lib/agent-discovery/directive";
 import { requestOrigin } from "@/lib/agent-discovery/request-origin";
 import { markdownResponse } from "@/lib/api";
 
@@ -13,17 +13,16 @@ const homepageMarkdown = (origin: string): string => {
 
 ${SITE.DESCRIPTION.LONG}
 
-${AGENT_DOCS_DIRECTIVE_MARKDOWN}
+inspectcn is in early development. Inspect active theme tokens, copy CSS, or capture a theme and preview it on localhost. The home page includes an interactive demo for desktop screens at least 1024px wide.
 
 ## Quick links
 
+- [Add to Chrome](${LINK.CHROME_WEB_STORE})
 - [Get started](${base}${ROUTES.DOCS_INSTALLATION}.md)
-- [Browse components](${base}${ROUTES.DOCS_COMPONENTS}.md)
 - [Documentation](${base}${ROUTES.DOCS}.md)
 - [LLM index (llms.txt)](${base}${ROUTES.LLMS})
-- [API catalog](${base}${ROUTES.API_CATALOG})
-- [OpenAPI description](${base}${ROUTES.OPENAPI})
-- [Agent skills index](${base}${ROUTES.AGENT_SKILLS_INDEX})
+- [Full documentation](${base}${ROUTES.LLMS_FULL})
+- [Source and issues](${LINK.GITHUB})
 `;
 };
 

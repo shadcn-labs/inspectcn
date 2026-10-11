@@ -1,103 +1,38 @@
 ---
 title: Installation
-description: How to develop the sample shadcn component registry included in inspectcn.
+description: Install inspectcn and capture your first theme.
 ---
 
-## Building Your Component
+## Add to Chrome
 
-### 1. Fork inspectcn
+Install [inspectcn from the Chrome Web Store](https://chromewebstore.google.com/detail/inspectcn/jmpjlakfdenblabkjbdcepoolnphdgen), then open or reload the website you want to inspect.
 
-Fork [inspectcn on GitHub](https://github.com/shadcn-labs/inspectcn). This guide covers the sample component registry in the website; see the [extension README](https://github.com/shadcn-labs/inspectcn/tree/main/apps/extension#development) to develop the browser extension.
+## Inspect and copy
 
-### 2. Install Dependencies
+1. Click the inspectcn badge on the page.
+2. Review the detected tokens and their color previews.
+3. Use **Copy** beside a token to copy its CSS declaration, or copy the current theme as a CSS block.
+4. If the website changes theme, use **Reread** to refresh the values.
 
-```bash
-pnpm install
-```
+Paste the generated CSS into your project's theme stylesheet and review it before replacing existing values.
 
-### 3. Create Your Component
+## Capture and preview on localhost
 
-Replace the placeholder at `registry/new-york/your-component.tsx`:
+1. On the source website, click **Capture** to save the active theme.
+2. Open your project on localhost and click the inspectcn badge.
+3. Select **Apply to localhost** to preview the captured theme.
+4. Select **Reset local** to restore the page's original theme.
 
-```tsx
-import { forwardRef, HTMLAttributes } from "react";
-import { cn } from "@/lib/utils";
+Capturing another theme replaces the saved capture. **Copy saved** copies the captured CSS, and **Clear saved** removes the saved capture.
 
-export interface MyButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "outline";
-}
+Applying a theme previews CSS variables in the browser; it does not edit your project files. To keep the theme, copy its CSS into your project.
 
-const MyButton = forwardRef<HTMLButtonElement, MyButtonProps>(
-  ({ className, variant = "default", ...props }, ref) => {
-    return (
-      <button
-        ref={ref}
-        className={cn(
-          "rounded-md px-4 py-2 font-medium",
-          variant === "default" && "bg-primary text-primary-foreground",
-          variant === "outline" && "border border-input",
-          className
-        )}
-        {...props}
-      />
-    );
-  }
-);
+## Where it works
 
-MyButton.displayName = "MyButton";
+Theme inspection depends on the CSS variables a website exposes. Missing tokens are shown as **Not found on this page**.
 
-export { MyButton };
-```
+Local previews are available on HTTP pages at `localhost`, `127.0.0.1`, and `0.0.0.0`. Chrome restricts extensions on internal browser pages and the Chrome Web Store.
 
-### 4. Update registry.json
+## Early development
 
-```json
-{
-  "name": "inspectcn",
-  "homepage": "https://inspectcn.arhamkhnz.com",
-  "items": [
-    {
-      "name": "my-button",
-      "type": "registry:ui",
-      "title": "My Button",
-      "description": "A custom button component.",
-      "files": [
-        {
-          "path": "registry/new-york/my-button.tsx",
-          "type": "registry:ui",
-          "target": "components/ui/my-button.tsx"
-        }
-      ]
-    }
-  ]
-}
-```
-
-### 5. Build & Deploy
-
-```bash
-pnpm registry:build
-pnpm build
-```
-
-Deploy your app and your component is live!
-
----
-
-## Installing Components
-
-To install a component from a shadcn-compatible registry (replace the example URL with that component's published URL):
-
-```bash
-npx shadcn@latest add https://example.com/r/my-button.json
-```
-
-Then use it:
-
-```tsx
-import { MyButton } from "@/components/ui/my-button";
-
-export function Demo() {
-  return <MyButton variant="outline">Click me</MyButton>;
-}
-```
+inspectcn is still in early development, and more features are being developed. If detection or a preview looks wrong, reset the preview and [report the issue](https://github.com/shadcn-labs/inspectcn/issues).
