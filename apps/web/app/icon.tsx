@@ -9,7 +9,7 @@ export const generateImageMetadata = () =>
 
 const Icon = async ({ id }: { id: Promise<string> }) => {
   const size = Number(await id);
-  return createIconImage(size, size === 128 ? 96 : size * 0.6875);
+  return createIconImage(size, size === 128 ? 120 : size * 0.6875);
 };
 
 export default Icon;
