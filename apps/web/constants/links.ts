@@ -8,6 +8,8 @@ export const GITHUB = {
 const githubUrl = `https://github.com/${GITHUB.org}/${GITHUB.repo}`;
 
 export const LINK = {
+  CHROME_WEB_STORE:
+    "https://chromewebstore.google.com/detail/inspectcn/jmpjlakfdenblabkjbdcepoolnphdgen",
   DISCORD: "https://discord.gg/N6G36KhYK4",
   GITHUB: githubUrl,
   LICENSE: `${githubUrl}/blob/${GITHUB.branch}/LICENSE`,

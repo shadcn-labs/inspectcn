@@ -1,0 +1,52 @@
+/* Intentionally mismatched demo tokens, scoped to the localhost board. */
+.board {
+  --background: #f0f5ff;
+  --foreground: #243047;
+  --card: #fff0e4;
+  --card-foreground: #442b25;
+  --muted: #d8eee6;
+  --muted-foreground: #52645e;
+  --primary: #8247d5;
+  --primary-foreground: #ffffff;
+  --secondary: #f8db9b;
+  --secondary-foreground: #664219;
+  --border: #b5cbc8;
+  --input: #b5cbc8;
+  --ring: #8247d5;
+  --radius: 0.75rem;
+}
+
+:global(.dark) .board {
+  --background: #172338;
+  --foreground: #e4eafa;
+  --card: #392d29;
+  --card-foreground: #ffebdc;
+  --muted: #1d403a;
+  --muted-foreground: #b6c8bd;
+  --primary: #ad7bea;
+  --primary-foreground: #20102e;
+  --secondary: #60481f;
+  --secondary-foreground: #ffe1a1;
+  --border: #52605e;
+  --input: #52605e;
+  --ring: #ad7bea;
+}
+
+.task {
+  border-radius: 0.75rem;
+}
+
+.high {
+  background: #ee5666;
+  color: #ffffff;
+}
+
+.medium {
+  background: #f3b948;
+  color: #452a08;
+}
+
+.low {
+  background: #79b9ed;
+  color: #132c45;
+}

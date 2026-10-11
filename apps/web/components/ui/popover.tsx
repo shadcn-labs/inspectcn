@@ -79,11 +79,14 @@ const PopoverTrigger = ({
 
 const PopoverContent = ({
   className,
+  container,
   align = "center",
   sideOffset = 4,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) => (
-  <PopoverPrimitive.Portal>
+}: React.ComponentProps<typeof PopoverPrimitive.Content> & {
+  container?: React.ComponentProps<typeof PopoverPrimitive.Portal>["container"];
+}) => (
+  <PopoverPrimitive.Portal container={container}>
     <PopoverPrimitive.Content
       data-slot="popover-content"
       align={align}
