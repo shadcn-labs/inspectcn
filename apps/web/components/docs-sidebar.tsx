@@ -14,8 +14,8 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { ROUTES } from "@/constants/routes";
-import { EXCLUDED_SECTIONS, isComponentsFolder } from "@/lib/docs";
-import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
+import { EXCLUDED_SECTIONS } from "@/lib/docs";
+import { getPagesFromFolder } from "@/lib/page-tree";
 import type { source } from "@/lib/source";
 
 const TOP_LEVEL_SECTIONS = [
@@ -118,11 +118,7 @@ export const DocsSidebar = ({
             return null;
           }
 
-          const pages = isComponentsFolder(item)
-            ? getAllPagesFromFolder(item).filter(
-                (page) => page.url !== ROUTES.DOCS_COMPONENTS
-              )
-            : getPagesFromFolder(item);
+          const pages = getPagesFromFolder(item);
 
           return (
             <SidebarPageGroup

@@ -3,7 +3,6 @@ import { createJiti } from "jiti";
 
 const jiti = createJiti(import.meta.url);
 
-const { LINK } = await jiti.import("./constants/links");
 const { ROUTES } = await jiti.import("./constants/routes");
 
 /** @type {import('next').NextConfig} */
@@ -17,7 +16,6 @@ const nextConfig = {
       `<${ROUTES.API_CATALOG}>; rel="api-catalog"`,
       `<${ROUTES.OPENAPI}>; rel="service-desc"`,
       `<${ROUTES.DOCS}>; rel="service-doc"`,
-      `<${LINK.SHADCN_MCP_DOCS}>; rel="service-doc"; title="shadcn MCP server"`,
       `<${ROUTES.AGENT_SKILLS_INDEX}>; rel="describedby"`,
     ].join(", ");
 
@@ -34,9 +32,6 @@ const nextConfig = {
         protocol: "https",
       },
     ],
-  },
-  outputFileTracingIncludes: {
-    "/*": ["./registry/**/*"],
   },
   redirects() {
     return [

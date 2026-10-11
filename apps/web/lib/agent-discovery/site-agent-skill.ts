@@ -10,24 +10,27 @@ export const SITE_AGENT_SKILL_MD = `# ${SITE.NAME}
 
 ${SITE.DESCRIPTION.LONG}
 
-Help users discover the inspectcn documentation and inspect the sample shadcn component registry included in its website.
+Help users install Inspectcn, inspect active shadcn-style theme tokens, copy CSS, and capture themes for localhost previews.
 
-## Registry
+## Documentation
 
-- Registry JSON: \`${ROUTES.REGISTRY}\`
-- Docs: ${ROUTES.DOCS}
-
-## MCP
-
-This site is a shadcn-compatible registry. For MCP workflows, use the maintained shadcn MCP server documentation: ${LINK.SHADCN_MCP_DOCS}
+- Introduction: ${ROUTES.DOCS}
+- Installation and usage: ${ROUTES.DOCS_INSTALLATION}
+- Privacy policy: ${ROUTES.DOCS_PRIVACY}
 
 ## Install
 
-\`\`\`bash
-npx shadcn@latest add ${SITE.URL}/r/your-component.json
-\`\`\`
+Install the extension from the Chrome Web Store: ${LINK.CHROME_WEB_STORE}
 
-Prefer following the on-site installation guide: ${ROUTES.DOCS_INSTALLATION}
+## Usage
+
+1. Open the Inspectcn badge on a website and review the detected tokens.
+2. Copy the active theme CSS or capture the theme.
+3. Open an HTTP localhost project and use Apply to localhost to preview the capture.
+4. Use Reset local to remove the saved preview.
+
+Inspectcn is in early development. Detection depends on the CSS variables a website exposes. The homepage includes a desktop demo; its captures remain in memory only.
+
 `;
 
 export const siteAgentSkillDigest = (): string => {

@@ -81,23 +81,6 @@ export const WebMcpTools = () => {
     });
 
     register({
-      description:
-        "Fetch the published shadcn registry manifest (registry.json) for this site.",
-      execute: async (_input, { signal }) => {
-        const res = await fetch(`${window.location.origin}${ROUTES.REGISTRY}`, {
-          signal,
-        });
-        if (!res.ok) {
-          return { ok: false, status: res.status };
-        }
-
-        return res.json();
-      },
-      inputSchema: { properties: {}, type: "object" },
-      name: `${SITE.NAME}_fetch_registry`,
-    });
-
-    register({
       description: "Open the llms.txt documentation index for this site.",
       execute: () => {
         window.location.assign(ROUTES.LLMS);

@@ -9,99 +9,77 @@
   <br />
   <br />
   <a href="https://github.com/shadcn-labs/inspectcn"><img src="https://www.shieldcn.dev/github/stars/shadcn-labs/inspectcn.svg?variant=secondary&size=xs&theme=zinc" alt="GitHub Stars" /></a>
-  <a href="https://github.com/shadcn-labs/inspectcn/actions"><img src="https://www.shieldcn.dev/github/ci/shadcn-labs/inspectcn.svg?variant=secondary&size=xs&theme=zinc" alt="CI" /></a>
   <a href="https://discord.com/invite/N6G36KhYK4"><img src="https://www.shieldcn.dev/discord/online-members/N6G36KhYK4.svg?variant=secondary&size=xs&theme=zinc" alt="Discord Members" /></a>
   <a href="https://x.com/Arhamkhnz"><img src="https://www.shieldcn.dev/x/follow/Arhamkhnz.svg?variant=branded&size=xs&theme=zinc" alt="X Follow" /></a>
 </p>
 
+<p align="center">
+  <a href="https://chromewebstore.google.com/detail/inspectcn/jmpjlakfdenblabkjbdcepoolnphdgen">Add to Chrome</a> ·
+  <a href="https://inspectcn.arhamkhnz.com/">Live Demo</a> ·
+  <a href="https://inspectcn.arhamkhnz.com/docs">Documentation</a>
+</p>
+
 ## Features
 
-- 🎨 **Theme inspector** - Inspect active shadcn-style theme tokens, copy CSS, and save captured themes
-- 📚 **Documentation site** - Beautiful docs powered by Fumadocs
-- 📦 **Sample shadcn registry** - Website includes a component registry compatible with `npx shadcn add`
-- 🤖 **Agent ready** - Includes `llms.txt`, `llms-full.txt`, agent skills discovery routes, and API catalog endpoints
-- 🔊 **[Web audio feedback](https://audio.raphaelsalaja.com/)** - Built-in sound effects powered by `@web-kits/audio`
-- 📳 **[Web haptics](https://haptics.lochie.me/)** - Optional haptic feedback hooks for supported devices via `web-haptics`
-- ✨ **[Motion animations](https://motion.dev/)** - `motion`-powered UI polish for copy states, text transitions, and interactive elements
-- 🎯 **[Animated icons](https://lucide-animated.com/)** - Reusable animated icons for navigation, sharing, sponsorship, and CTAs
-- 🔄 **[View transitions](https://nextjs.org/docs/app/api-reference/config/next-config-js/viewTransition)** - Next.js view transitions enabled for smoother navigation between pages
-- 🚀 **Deploy ready** - Deploy anywhere
+- **Inspect tokens** — View active colors, surfaces, borders, radius, charts, and sidebar tokens.
+- **Copy CSS** — Copy individual tokens or the current theme as a CSS block.
+- **Capture themes** — Save a theme and reuse it in your project.
+- **Preview on localhost** — Apply a captured theme and reset to the original styles.
+- **Try the demo** — Capture and apply themes in the website's interactive demo.
 
-## Built In
-
-- `Next.js 16` with the App Router
-- `React 19` and `TypeScript`
-- `Tailwind CSS 4`
-- `Fumadocs` for documentation
-- `shiki` + `rehype-pretty-code` for code blocks
-- `sonner` for toasts
-- `radix-ui` + `vaul` for accessible primitives
-- `@vercel/analytics` for analytics
-
-## Quick Start
-
-Run commands from the workspace root. Use Node.js `^20.19.0 || >=22.18.0`
-and pnpm `10.28.2`.
-
-1. **Clone or fork** [inspectcn](https://github.com/shadcn-labs/inspectcn)
-
-2. **Install dependencies**:
-
-```bash
-pnpm install
-```
-
-3. **Start both apps in development**:
-
-```bash
-pnpm dev
-```
-
-To start only the website, use `pnpm --filter inspectcn-web dev`. To start only
-the extension, use `pnpm --filter inspectcn dev`.
-
-See the [extension README](apps/extension/README.md) for extension features and development commands.
-
-The website is deployed at [inspectcn.arhamkhnz.com](https://inspectcn.arhamkhnz.com/).
+Inspectcn is in early development. Theme detection may vary depending on a website's CSS variables and theme setup.
 
 ## Usage
 
-Open the extension badge on a website to inspect its active theme tokens, copy
-the CSS, or save a captured theme. Saved themes can be previewed on localhost.
+Install the extension, open a website, and click the Inspectcn badge to inspect or capture its theme. Open your project on localhost to preview the capture, or copy the CSS into your theme stylesheet.
 
-The website also includes a sample component registry. To install its example component:
+Previews change CSS variables in the browser; they do not edit your project files. Theme data is processed locally. See the [installation guide](https://inspectcn.arhamkhnz.com/docs/installation) and [privacy policy](https://inspectcn.arhamkhnz.com/docs/privacy).
+
+## Tech Stack
+
+- **Extension:** WXT, React, TypeScript, Tailwind CSS, and shadcn/ui.
+- **Website:** Next.js, React, Tailwind CSS, and Fumadocs.
+- **Workspace:** pnpm and Turborepo, with shared brand and inspector packages.
+
+## Development
+
+Use Node.js `^20.19.0 || >=22.18.0` and pnpm `10.28.2`.
 
 ```bash
-npx shadcn@latest add https://inspectcn.arhamkhnz.com/r/your-component.json
+git clone https://github.com/shadcn-labs/inspectcn.git
+cd inspectcn
+pnpm install
+pnpm dev
 ```
+
+Run commands from the workspace root:
+
+| Command | Description |
+| --- | --- |
+| `pnpm --filter inspectcn dev` | Start the extension |
+| `pnpm --filter inspectcn-web dev` | Start the website |
+| `pnpm build` | Build both apps |
+| `pnpm zip` | Build and package the Chrome extension |
+| `pnpm lint` | Check lint rules |
+| `pnpm typecheck` | Check types |
+| `pnpm format` | Format the workspace |
+
+See the [extension README](apps/extension/README.md) for more details.
 
 ## Project Structure
 
-```
-├── apps/
-│   ├── web/                # Next.js website and sample registry (inspectcn-web)
-│   │   ├── registry/new-york/your-component.tsx
-│   │   ├── registry.json   # Component registry manifest
-│   │   ├── content/docs/   # Documentation (MDX)
-│   │   ├── app/            # Next.js app
-│   │   └── public/r/       # Built registry files (auto-generated)
-│   └── extension/          # WXT browser extension (inspectcn)
-├── package.json            # Workspace commands and shared tooling
-├── pnpm-workspace.yaml     # Workspace package paths
-└── turbo.json              # Shared task configuration
+```text
+apps/
+  extension/       # WXT browser extension
+  web/             # Website, MDX docs, and interactive demo
+packages/
+  brand/           # Shared logo and assets
+  inspector/       # Shared theme reader and inspector UI
 ```
 
-## Scripts
+## Contributing
 
-- `pnpm dev` - Start the website and extension development servers
-- `pnpm build` - Build both apps for production (also rebuilds the registry)
-- `pnpm registry:build` - Rebuild the component registry
-- `pnpm typecheck` - Check types in both apps
-- `pnpm check` - Run the app lint and formatting checks
-- `pnpm format` - Format both apps and workspace root files through Turbo
-- `pnpm format:check` - Check formatting in both apps and workspace root files
-- `pnpm zip` - Package the Chrome extension
-- `pnpm zip:firefox` - Package the Firefox extension
+Issues and pull requests are welcome. [Report a bug or suggest a feature](https://github.com/shadcn-labs/inspectcn/issues), including the website URL when reporting theme detection issues.
 
 ## License
 

@@ -3,9 +3,8 @@
   "extends": ["//"],
   "tasks": {
     "build": {
-      "dependsOn": ["$TURBO_EXTENDS$", "registry:build"],
       "env": ["SITE_URL"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*", "!public/r/**"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "start": {

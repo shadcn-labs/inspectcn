@@ -50,10 +50,6 @@
     "lint:fix": {
       "cache": false
     },
-    "registry:build": {
-      "inputs": ["registry.json", "registry/**"],
-      "outputs": ["public/r/**"]
-    },
     "start": {
       "cache": false,
       "persistent": true

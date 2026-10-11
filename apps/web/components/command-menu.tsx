@@ -1,12 +1,7 @@
 "use client";
 
 import type { Root as PageTreeRoot } from "fumadocs-core/page-tree";
-import {
-  ArrowRightIcon,
-  CornerDownLeftIcon,
-  CircleDashedIcon,
-  SquareDashedIcon,
-} from "lucide-react";
+import { ArrowRightIcon, CornerDownLeftIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -28,80 +23,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Kbd } from "@/components/ui/kbd";
-import { Separator } from "@/components/ui/separator";
-import { ROUTES } from "@/constants/routes";
-import { SITE } from "@/constants/site";
-import { useCopyToClipboard } from "@/hooks/use-copy-to-clipboard";
-import { useFeedback } from "@/hooks/use-feedback";
 import { useIsMac } from "@/hooks/use-is-mac";
 import { useMutationObserver } from "@/hooks/use-mutation-observer";
-import { usePackageManager } from "@/hooks/use-package-manager";
-import { EXCLUDED_SECTIONS, isComponentsFolder } from "@/lib/docs";
 import { trackEvent } from "@/lib/events";
-import { getAllPagesFromFolder, getPagesFromFolder } from "@/lib/page-tree";
+import { getPagesFromFolder } from "@/lib/page-tree";
 import { cn } from "@/lib/utils";
-
-type DocUrlKind =
-  | { kind: "theme"; slug: string }
-  | { kind: "component"; slug: string }
-  | { kind: "template"; slug: string }
-  | { kind: "page" };
 
 const GROUP_HEADING_CLS =
   "!p-0 [&_[cmdk-group-heading]]:scroll-mt-16 [&_[cmdk-group-heading]]:!p-3 [&_[cmdk-group-heading]]:!pb-1";
-
-const parseDocPageUrl = (url: string): DocUrlKind => {
-  const parts = url.split("/").filter(Boolean);
-  const themesIdx = parts.indexOf("themes");
-  if (themesIdx !== -1 && parts[themesIdx + 1]) {
-    return { kind: "theme", slug: parts[themesIdx + 1] };
-  }
-  const componentsIdx = parts.indexOf("components");
-  if (componentsIdx !== -1 && parts[componentsIdx + 1]) {
-    return { kind: "component", slug: parts.at(-1) ?? "" };
-  }
-  const templatesIdx = parts.indexOf("templates");
-  if (templatesIdx !== -1 && parts[templatesIdx + 1]) {
-    return { kind: "template", slug: parts.at(-1) ?? "" };
-  }
-  return { kind: "page" };
-};
 
 const searchKeywordsFromUrl = (url: string) => {
   const segments = url.split("/").filter(Boolean);
   return segments.flatMap((segment) =>
     segment.includes("-") ? [segment, ...segment.split("-")] : [segment]
   );
-};
-
-const buildDocPageKeywords = (
-  parsed: DocUrlKind,
-  url: string,
-  breadcrumb: string[]
-): string[] => [
-  ...(parsed.kind === "page" ? [] : [parsed.kind]),
-  ...breadcrumb.filter(Boolean).flatMap((s) => [s, s.toLowerCase()]),
-  ...searchKeywordsFromUrl(url),
-];
-
-const DocPageLeadingIcon = ({ parsed }: { parsed: DocUrlKind }) => {
-  // if (parsed.kind === "theme") {
-  //   const color = themePrimaryBySlug[parsed.slug];
-  //   return (
-  //     <span
-  //       className="border-border/60 size-4 shrink-0 rounded-sm border"
-  //       style={color ? { backgroundColor: color } : undefined}
-  //       aria-hidden
-  //     />
-  //   );
-  // }
-  if (parsed.kind === "component") {
-    return <CircleDashedIcon />;
-  }
-  if (parsed.kind === "template") {
-    return <SquareDashedIcon />;
-  }
-  return <ArrowRightIcon />;
 };
 
 const CommandMenuItem = ({
@@ -143,52 +78,24 @@ const CommandMenuItem = ({
 };
 
 export const CommandMenu = ({
-  blocks,
   navItems,
   tree,
   ...props
 }: React.ComponentProps<typeof Dialog> & {
-  blocks?: { name: string; description: string; categories: string[] }[];
   navItems: { href: string; label: string }[];
   tree: PageTreeRoot;
 }) => {
   const router = useRouter();
   const isMac = useIsMac();
-  const [packageManager] = usePackageManager();
   const [open, setOpen] = useState(false);
   const [showGoToPage, setShowGoToPage] = useState(false);
-  const [copyPayload, setCopyPayload] = useState("");
-  const copyFeedback = useFeedback({ sound: "copy" });
-
-  const { copyToClipboard } = useCopyToClipboard({
-    onCopy: () => {
-      if (copyPayload) {
-        trackEvent({
-          name: "copy_npm_command",
-          properties: { command: copyPayload, pm: packageManager },
-        });
-      }
-    },
-  });
-
   const treeGroups = useMemo(() => {
-    const groups: { label: string; pages: { url: string; name: string }[] }[] =
-      [];
+    const groups: { label: string; pages: { url: string; name: string }[] }[] = [];
     for (const item of tree.children) {
       if (item.type !== "folder") {
         continue;
       }
-      if (EXCLUDED_SECTIONS.has(item.$id ?? "")) {
-        continue;
-      }
-
-      const pages = (
-        isComponentsFolder(item)
-          ? getAllPagesFromFolder(item).filter(
-              (page) => page.url !== ROUTES.DOCS_COMPONENTS
-            )
-          : getPagesFromFolder(item)
-      ).map((p) => ({
+      const pages = getPagesFromFolder(item).map((p) => ({
         name: typeof p.name === "string" ? p.name : String(p.name),
         url: p.url,
       }));
@@ -201,35 +108,6 @@ export const CommandMenu = ({
     }
     return groups;
   }, [tree]);
-
-  const handleDocPageHighlight = useCallback(
-    (item: { url: string; name?: string }) => {
-      setShowGoToPage(true);
-      const parsed = parseDocPageUrl(item.url);
-      if (parsed.kind === "theme") {
-        setCopyPayload(
-          `${packageManager} dlx shadcn@latest add ${SITE.REGISTRY}/theme-${parsed.slug}`
-        );
-        return;
-      }
-      if (parsed.kind === "component" || parsed.kind === "template") {
-        setCopyPayload(
-          `${packageManager} dlx shadcn@latest add ${SITE.REGISTRY}/${parsed.slug}`
-        );
-        return;
-      }
-      setCopyPayload("");
-    },
-    [packageManager]
-  );
-
-  const handleBlockHighlight = useCallback(
-    (block: { name: string; description: string; categories: string[] }) => {
-      setShowGoToPage(true);
-      setCopyPayload(`${packageManager} dlx shadcn@latest add ${block.name}`);
-    },
-    [packageManager]
-  );
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
@@ -254,16 +132,15 @@ export const CommandMenu = ({
     url: string,
     breadcrumb: string[]
   ) => {
-    const parsed = parseDocPageUrl(url);
     return (
       <CommandMenuItem
         key={url}
-        keywords={buildDocPageKeywords(parsed, url, breadcrumb)}
+        keywords={[...breadcrumb, ...searchKeywordsFromUrl(url)]}
         value={[...breadcrumb, title].filter(Boolean).join(" ")}
-        onHighlight={() => handleDocPageHighlight({ name: title, url })}
+        onHighlight={() => setShowGoToPage(true)}
         onSelect={() => runCommand(() => router.push(url))}
       >
-        <DocPageLeadingIcon parsed={parsed} />
+        <ArrowRightIcon />
         {title}
       </CommandMenuItem>
     );
@@ -296,22 +173,11 @@ export const CommandMenu = ({
           return !prev;
         });
       }
-
-      if (
-        e.key === "c" &&
-        (e.metaKey || e.ctrlKey) &&
-        copyPayload.includes("shadcn@latest")
-      ) {
-        runCommand(() => {
-          copyFeedback();
-          copyToClipboard(copyPayload);
-        });
-      }
     };
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [copyPayload, runCommand, copyToClipboard, copyFeedback]);
+  }, []);
 
   return (
     <Dialog open={open} onOpenChange={setOpen} sounds>
@@ -358,7 +224,6 @@ export const CommandMenu = ({
                     keywords={["nav", "navigation", item.label.toLowerCase()]}
                     onHighlight={() => {
                       setShowGoToPage(true);
-                      setCopyPayload("");
                     }}
                     onSelect={() => runCommand(() => router.push(item.href))}
                   >
@@ -379,43 +244,10 @@ export const CommandMenu = ({
                 )}
               </CommandGroup>
             ))}
-            {blocks?.length ? (
-              <CommandGroup
-                heading="Blocks"
-                className="p-0! **:[[cmdk-group-heading]]:p-3!"
-              >
-                {blocks.map((block) => (
-                  <CommandMenuItem
-                    key={block.name}
-                    value={block.name}
-                    onHighlight={() => handleBlockHighlight(block)}
-                    keywords={[
-                      "block",
-                      block.name,
-                      block.description,
-                      ...block.categories,
-                    ]}
-                    onSelect={() =>
-                      runCommand(() =>
-                        router.push(
-                          `/blocks/${block.categories[0]}#${block.name}`
-                        )
-                      )
-                    }
-                  >
-                    <SquareDashedIcon />
-                    {block.description}
-                    <span className="text-muted-foreground ml-auto font-mono text-xs font-normal tabular-nums">
-                      {block.name}
-                    </span>
-                  </CommandMenuItem>
-                ))}
-              </CommandGroup>
-            ) : null}
           </CommandList>
         </Command>
         <div className="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 overflow-hidden rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800">
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex shrink-0 items-center gap-2">
             <Kbd className="shrink-0">
               <CornerDownLeftIcon />
             </Kbd>{" "}
@@ -423,16 +255,6 @@ export const CommandMenu = ({
               <span className="min-w-0 truncate">Go to Page</span>
             ) : null}
           </div>
-          {copyPayload && (
-            <>
-              <Separator orientation="vertical" className="h-4!" />
-              <div className="flex min-w-0 items-center gap-1">
-                <Kbd className="shrink-0">{isMac ? "⌘" : "Ctrl"}</Kbd>
-                <Kbd className="shrink-0">C</Kbd>
-                <span className="min-w-0 truncate">{copyPayload}</span>
-              </div>
-            </>
-          )}
         </div>
       </DialogContent>
     </Dialog>

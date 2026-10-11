@@ -120,9 +120,6 @@ importers:
       jotai:
         specifier: ^2.19.1
         version: 2.19.1(@babel/core@7.29.0)(@babel/template@7.29.7)(@types/react@19.3.0)(react@19.3.0)
-      lru-cache:
-        specifier: ^11.3.5
-        version: 11.3.5
       lucide-react:
         specifier: 1.11.0
         version: 1.11.0(react@19.3.0)
@@ -162,9 +159,6 @@ importers:
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
-      ts-morph:
-        specifier: ^26.0.0
-        version: 26.0.0
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)

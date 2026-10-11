@@ -15,7 +15,6 @@
     "zip:firefox": "turbo run zip:firefox",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
-    "registry:build": "turbo run registry:build",
     "check": "turbo run check",
     "fix": "turbo run fix",
     "format": "turbo run format format:root",

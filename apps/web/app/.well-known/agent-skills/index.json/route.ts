@@ -12,7 +12,7 @@ export const GET = (request: Request) => {
       skills: [
         {
           description:
-            "Discover inspectcn documentation and use the sample shadcn component registry included in its website.",
+            "Discover Inspectcn documentation, installation, theme inspection, and localhost previews.",
           digest: siteAgentSkillDigest(),
           name: "inspectcn",
           type: "skill-md",

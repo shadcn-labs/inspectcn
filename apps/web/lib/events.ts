@@ -6,7 +6,6 @@ const eventSchema = z.object({
     "copy_npm_command",
     "copy_usage_import_code",
     "copy_usage_code",
-    "copy_primitive_code",
     "copy_theme_code",
     "copy_block_code",
     "copy_chunk_code",
@@ -18,8 +17,6 @@ const eventSchema = z.object({
     "set_layout",
     "open_command_menu",
     "click_edit_page",
-    "click_registry_add_button",
-    "copy_registry_command",
     "keyboard_shortcut_navigate",
   ]),
   properties: z
