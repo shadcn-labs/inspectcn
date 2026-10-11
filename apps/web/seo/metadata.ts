@@ -98,39 +98,7 @@ export const baseMetadata: Metadata = {
   category: "technology",
   creator: SITE.AUTHOR.NAME,
   description: SITE.DESCRIPTION.LONG,
-  icons: {
-    apple: {
-      sizes: "180x180",
-      type: "image/png",
-      url: "/apple-touch-icon.png",
-    },
-    icon: [
-      {
-        sizes: "32x32",
-        url: "/favicon.ico",
-      },
-      {
-        sizes: "96x96",
-        type: "image/png",
-        url: "/favicon-96x96.png",
-      },
-      {
-        media: "(prefers-color-scheme: light)",
-        sizes: "any",
-        type: "image/svg+xml",
-        url: "/favicon.svg",
-      },
-      {
-        media: "(prefers-color-scheme: dark)",
-        sizes: "any",
-        type: "image/svg+xml",
-        url: "/favicon-dark.svg",
-      },
-    ],
-    shortcut: "/favicon-16x16.png",
-  },
   keywords: [...SITE.KEYWORDS],
-  manifest: ROUTES.MANIFEST,
   metadataBase: new URL(SITE.URL),
   openGraph: {
     description: SITE.DESCRIPTION.LONG,

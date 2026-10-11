@@ -52,6 +52,7 @@ const nextConfig = {
       },
     ];
   },
+  transpilePackages: ["@inspectcn/brand"],
 };
 
 const withMDX = createMDX({});
