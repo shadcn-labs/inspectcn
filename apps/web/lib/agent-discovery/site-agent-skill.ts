@@ -8,7 +8,9 @@ export const SITE_AGENT_SKILL_MD = `# ${SITE.NAME}
 
 ## Summary
 
-Help users discover, inspect, and install components from this public shadcn registry starter and its documentation site.
+${SITE.DESCRIPTION.LONG}
+
+Help users discover the inspectcn documentation and inspect the sample shadcn component registry included in its website.
 
 ## Registry
 

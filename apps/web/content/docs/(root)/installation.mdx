@@ -1,13 +1,13 @@
 ---
 title: Installation
-description: How to use this template to build your own shadcn component.
+description: How to develop the sample shadcn component registry included in inspectcn.
 ---
 
 ## Building Your Component
 
-### 1. Fork the Template
+### 1. Fork inspectcn
 
-Click "Use this template" on [GitHub](https://github.com/shadcn-labs/startercn).
+Fork [inspectcn on GitHub](https://github.com/shadcn-labs/inspectcn). This guide covers the sample component registry in the website; see the [extension README](https://github.com/shadcn-labs/inspectcn/tree/main/apps/extension#development) to develop the browser extension.
 
 ### 2. Install Dependencies
 
@@ -53,8 +53,8 @@ export { MyButton };
 
 ```json
 {
-  "name": "your-name/your-registry",
-  "homepage": "https://your-site.com",
+  "name": "inspectcn",
+  "homepage": "https://inspectcn.arhamkhnz.com",
   "items": [
     {
       "name": "my-button",
@@ -86,7 +86,7 @@ Deploy your app and your component is live!
 
 ## Installing Components
 
-To install a component from any registry built with this template:
+To install a component from a shadcn-compatible registry (replace the example URL with that component's published URL):
 
 ```bash
 npx shadcn@latest add https://example.com/r/my-button.json

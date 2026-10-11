@@ -4,12 +4,12 @@
   "tasks": {
     "build": {
       "dependsOn": ["$TURBO_EXTENDS$", "registry:build"],
-      "env": ["SITE_URL", "VERCEL_PROJECT_PRODUCTION_URL"],
+      "env": ["SITE_URL"],
       "inputs": ["$TURBO_DEFAULT$", ".env*", "!public/r/**"],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "start": {
-      "env": ["SITE_URL", "VERCEL_PROJECT_PRODUCTION_URL"]
+      "env": ["SITE_URL"]
     }
   }
 }

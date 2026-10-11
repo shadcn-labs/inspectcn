@@ -1,12 +1,8 @@
-export const FALLBACK_SITE_ORIGIN = "https://startercn.vercel.app" as const;
+export const FALLBACK_SITE_ORIGIN = "https://inspectcn.arhamkhnz.com" as const;
 
 const getBaseUrl = () => {
   if (process.env.NODE_ENV !== "production") {
     return "http://localhost:3000";
-  }
-
-  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
-    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   }
 
   return process.env.SITE_URL ?? FALLBACK_SITE_ORIGIN;
@@ -20,19 +16,19 @@ export const SITE = {
     TWITTER: "@Arhamkhnz",
   },
   DESCRIPTION: {
-    LONG: "A starter kit for building and publishing your own shadcn registry components.",
-    SHORT: "Build your own shadcn registry",
+    LONG: "Chrome extension to inspect and extract shadcn-style theme tokens from any website, then bring them into your project.",
+    SHORT: "Inspect and extract shadcn-style theme tokens",
   },
   KEYWORDS: [
     "shadcn",
-    "shadcn registry",
-    "component registry",
-    "shadcn components",
-    "next.js",
-    "tailwindcss",
-    "npx shadcn add",
+    "inspectcn",
+    "Chrome extension",
+    "theme tokens",
+    "CSS custom properties",
+    "theme inspector",
+    "Tailwind CSS",
   ] as const,
-  NAME: "startercn",
+  NAME: "inspectcn",
   OG_IMAGE: `${baseUrl}/og`,
   REGISTRY: baseUrl,
   URL: baseUrl,

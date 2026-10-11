@@ -84,4 +84,4 @@ This privacy policy may be updated if Inspectcn's functionality changes. The lat
 
 For questions about this privacy policy or Inspectcn, please use the project repository:
 
-[https://github.com/arhamkhnz/inspectcn](https://github.com/arhamkhnz/inspectcn)
+[https://github.com/shadcn-labs/inspectcn](https://github.com/shadcn-labs/inspectcn)
