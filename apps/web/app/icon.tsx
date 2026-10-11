@@ -1,8 +1,15 @@
 import { createIconImage } from "@/lib/icon-image";
 
-export const size = { height: 128, width: 128 };
-export const contentType = "image/png";
+export const generateImageMetadata = () =>
+  [128, 192, 512].map((size) => ({
+    contentType: "image/png",
+    id: String(size),
+    size: { height: size, width: size },
+  }));
 
-const Icon = () => createIconImage(size.width, 96);
+const Icon = async ({ id }: { id: Promise<string> }) => {
+  const size = Number(await id);
+  return createIconImage(size, size === 128 ? 96 : size * 0.6875);
+};
 
 export default Icon;
